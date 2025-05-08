@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bolis Gourmet</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Fondo animado */
+    body {
+      background: linear-gradient(-45deg, #f9a8d4, #fef3c7, #fcd34d, #fde68a);
+      background-size: 400% 400%;
+      animation: fondoAnimado 15s ease infinite;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes fondoAnimado {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Canvas de nieve */
+    #snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+
+  <!-- Efecto de nieve -->
+  <canvas id="snow"></canvas>
+
+  <!-- Encabezado -->
+  <header class="text-center py-8 bg-pink-200 bg-opacity-80 shadow-md relative z-20">
+    <h1 class="text-4xl font-bold text-pink-700 leading-tight">
+      🍧 Bolis Gourmet<br>Line
+    </h1>
+    <p class="text-lg text-gray-700 mt-2">¡Refresca tu día con un sabor inolvidable!</p>
+  </header>
+
+  <!-- Imagen destacada con efecto zoom -->
+  <section class="max-w-4xl mx-auto p-6 relative z-20">
+    <img src="bolis-gourmet.jpg" alt="Bolis gourmet"
+         class="rounded-2xl shadow-xl w-full object-cover transform transition-transform duration-300 hover:scale-105">
+  </section>
+
+  <!-- Texto de sabores -->
+  <section class="text-center my-6 px-4 relative z-20">
+    <p class="text-lg font-medium text-pink-800 bg-white bg-opacity-70 inline-block px-4 py-2 rounded-xl shadow">
+      Tenemos de varios sabores: Gansito, Nuez, Vainilla, Nutella y Oreo.
+    </p>
+  </section>
+
+  <!-- Galería de imágenes con zoom -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 max-w-6xl mx-auto relative z-20">
+    <img src="bolis.jpg" alt="Bolis"
+         class="rounded-xl shadow-md w-full h-auto transform transition-transform duration-300 hover:scale-105">
+    <img src="bolis2.jpg" alt="Bolis"
+         class="rounded-xl shadow-md w-full h-auto transform transition-transform duration-300 hover:scale-105">
+    <img src="bolis3.jpg" alt="Bolis"
+         class="rounded-xl shadow-md w-full h-auto transform transition-transform duration-300 hover:scale-105">
+  </section>
+
+  <!-- Botón de WhatsApp -->
+  <section class="text-center my-10 relative z-20">
+    <a href="https://wa.me/523331822011?text=¡Hola!%20Quiero%20pedir%20bolis%20gourmet" target="_blank"
+   class="inline-block px-8 py-4 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-green-600 transition">
+   📲 ¡Pedir por WhatsApp!
+</a>
+
+  </section>
+
+  <!-- Pie de página -->
+  <footer class="text-center py-4 text-sm text-gray-600 bg-white bg-opacity-50 relative z-20">
+    © 2025 Bolis Gourmet. Todos los derechos reservados.
+  </footer>
+
+  <!-- Script de nieve -->
+  <script>
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let flakes = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    function createFlakes() {
+      flakes = [];
+      for (let i = 0; i < 150; i++) {
+        flakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * 1 + 0.5
+        });
+      }
+    }
+
+    function drawFlakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      for (let i = 0; i < flakes.length; i++) {
+        const f = flakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      moveFlakes();
+    }
+
+    function moveFlakes() {
+      for (let i = 0; i < flakes.length; i++) {
+        const f = flakes[i];
+        f.y += f.d;
+        f.x += Math.sin(f.y * 0.01);
+
+        if (f.y > height) {
+          flakes[i] = { x: Math.random() * width, y: 0, r: f.r, d: f.d };
+        }
+      }
+    }
+
+    function animateSnow() {
+      drawFlakes();
+      requestAnimationFrame(animateSnow);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      createFlakes();
+    });
+
+    resize();
+    createFlakes();
+    animateSnow();
+  </script>
+
+</body>
+</html>

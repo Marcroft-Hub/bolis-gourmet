@@ -27,7 +27,7 @@ Incluye animaciones, efectos visuales y un botón de contacto directo por WhatsA
 
 🔗 Enlace de WhatsApp (ya configurado):
 ---------------------------------------
-https://wa.me/523325362320?text=¡Hola!%20Quiero%20pedir%20bolis%20gourmet
+https://wa.me/123456789456?text=¡Hola!%20Quiero%20pedir%20bolis%20gourmet
 
 🚀 Instrucciones para subir a Netlify:
 --------------------------------------
